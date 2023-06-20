@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "83487651365",
+    "project_id": "loginapp-3bb02",
+    "storage_bucket": "loginapp-3bb02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83487651365:android:21d1b44a1aa6619ccdf1cc",
+        "android_client_info": {
+          "package_name": "com.example.cooking_social_network"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83487651365-k1gut5itpk6g0pdpif145fovkt95nlpb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6uqVIqSAN8c2mKEfn1gUr5tZ6tnuKmlQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "83487651365-k1gut5itpk6g0pdpif145fovkt95nlpb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

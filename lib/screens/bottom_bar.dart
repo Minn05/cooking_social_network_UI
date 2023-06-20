@@ -33,6 +33,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Center(child: _widgetOptions[_selectedIndex]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -40,8 +41,8 @@ class _BottomBarState extends State<BottomBar> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.shifting,
-        selectedItemColor: Styles.iconblue,
-        unselectedItemColor: Styles.iconblue,
+        selectedItemColor: Styles.blueColor,
+        unselectedItemColor: Styles.blueColor,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(FluentSystemIcons.ic_fluent_home_regular),
@@ -54,7 +55,7 @@ class _BottomBarState extends State<BottomBar> {
           BottomNavigationBarItem(
               icon: Icon(FluentSystemIcons.ic_fluent_add_circle_regular),
               activeIcon: Icon(FluentSystemIcons.ic_fluent_add_circle_filled),
-              label: "Ticket"),
+              label: "Add"),
           BottomNavigationBarItem(
               icon: Icon(FluentSystemIcons.ic_fluent_bookmark_regular),
               activeIcon: Icon(FluentSystemIcons.ic_fluent_bookmark_filled),

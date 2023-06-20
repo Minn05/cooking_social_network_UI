@@ -1,9 +1,18 @@
+// import 'package:cooking_social_network/login/login_Screen.dart';
+import 'package:cooking_social_network/provider/internet_provider.dart';
+import 'package:cooking_social_network/provider/sign_in_provider.dart';
+import 'package:cooking_social_network/screens/bottom_bar.dart';
+// import 'package:cooking_social_network/screens/home_screen.dart';
+// import 'package:cooking_social_network/screens/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:cooking_social_network/Screens/bottom_bar.dart';
 import 'package:cooking_social_network/utils/app_styles.dart';
-import 'package:cooking_social_network/login/login_Screen.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  //initication the application
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -12,13 +21,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Social Network Cooking',
-      theme: ThemeData(
-        primaryColor: primary,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => SignInProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => InternetProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Social Network Cooking',
+        theme: ThemeData(
+          primaryColor: primary,
+        ),
+        home: const BottomBar(),
       ),
-      home: const LoginCreen(),
     );
   }
 }
