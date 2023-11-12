@@ -3,7 +3,7 @@ import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../screens/recipe_details.dart';
+import '../screens/home/recipe_details.dart';
 import '../utils/app_layout.dart';
 
 class PostInSearch extends StatefulWidget {

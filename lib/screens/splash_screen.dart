@@ -1,9 +1,7 @@
 import 'dart:async';
-
-import 'package:cooking_social_network/login/login_Screen.dart';
 import 'package:cooking_social_network/provider/sign_in_provider.dart';
-import 'package:cooking_social_network/screens/bottom_bar.dart';
-import 'package:cooking_social_network/screens/home_screen.dart';
+import 'package:cooking_social_network/screens/bottombar/bottom_bar.dart';
+import 'package:cooking_social_network/screens/home/home_screen.dart';
 import 'package:cooking_social_network/utils/app_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';

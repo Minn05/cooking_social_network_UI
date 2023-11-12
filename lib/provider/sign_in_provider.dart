@@ -164,4 +164,8 @@ class SignInProvider extends ChangeNotifier {
     final SharedPreferences s = await SharedPreferences.getInstance();
     s.clear();
   }
+
+  registerUserWithEmailAndPassword(email, password) {}
+
+  signInWithEmailAndPassword(String trim, String trim2) {}
 }

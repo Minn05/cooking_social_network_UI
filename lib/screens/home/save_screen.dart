@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../utils/app_styles.dart';
+import '../../utils/app_styles.dart';
 
 class SaveScreen extends StatelessWidget {
   const SaveScreen({super.key});

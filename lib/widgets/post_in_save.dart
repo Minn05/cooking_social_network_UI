@@ -2,7 +2,7 @@ import 'package:cooking_social_network/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../screens/recipe_details.dart';
+import '../screens/home/recipe_details.dart';
 import '../utils/app_layout.dart';
 
 class PostInSave extends StatefulWidget {

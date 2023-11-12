@@ -5,8 +5,8 @@ import 'package:cooking_social_network/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../widgets/add_ingredient.dart';
-import '../widgets/text_and_textinput.dart';
+import '../../widgets/add_ingredient.dart';
+import '../../widgets/text_and_textinput.dart';
 
 class AddScren extends StatelessWidget {
   const AddScren({super.key});
@@ -89,7 +89,7 @@ class AddScren extends StatelessWidget {
             children: [
               //Add image to tho recipe
               TestImagePicker(),
-              const Gap(10),
+
               //decription
               Container(
                 width: MediaQuery.of(context).size.width,

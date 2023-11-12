@@ -11,49 +11,27 @@ class TestImagePicker extends StatefulWidget {
 
 class _TestImagePickerState extends State<TestImagePicker> {
   String? selectedImagePath;
+  bool hasImage = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.yellow.shade800,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            selectedImagePath == null
-                ? Image.asset(
-                    'assets/images/image_placeholder.png',
-                    height: 200,
-                    width: 200,
-                    fit: BoxFit.fill,
-                  )
-                : Image.file(
-                    File(selectedImagePath!),
-                    height: 200,
-                    width: 200,
-                    fit: BoxFit.fill,
-                  ),
-            const Text(
-              'Select Image',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                padding: const EdgeInsets.all(20),
-                textStyle: const TextStyle(fontSize: 14, color: Colors.white),
+    return InkWell(
+      onTap: () async {
+        selectImage();
+      },
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.4,
+        width: double.infinity,
+        child: selectedImagePath == null
+            ? const Icon(
+                Icons.add_a_photo_outlined,
+                size: 150,
+                color: Colors.grey,
+              )
+            : Image.file(
+                File(selectedImagePath!),
+                fit: BoxFit.cover,
               ),
-              onPressed: () async {
-                selectImage();
-              },
-              child: const Text('Select'),
-            ),
-            const SizedBox(height: 10),
-          ],
-        ),
       ),
     );
   }

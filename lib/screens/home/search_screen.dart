@@ -4,9 +4,10 @@ import 'package:cooking_social_network/widgets/post_in_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gap/gap.dart';
+
+import '../../utils/app_styles.dart';
 // import 'package:get/get.dart';
 
-import '../utils/app_styles.dart';
 
 class SeachScreen extends StatelessWidget {
   const SeachScreen({super.key});

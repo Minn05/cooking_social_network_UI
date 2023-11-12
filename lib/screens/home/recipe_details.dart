@@ -222,7 +222,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CommentScreen()),
+                              builder: (context) => const CommentScreen()),
                         );
                       },
                     ),

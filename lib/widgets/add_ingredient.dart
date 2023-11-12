@@ -1,7 +1,6 @@
 import 'package:cooking_social_network/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
 import '../utils/app_styles.dart';
 
 class AddIngredient extends StatefulWidget {

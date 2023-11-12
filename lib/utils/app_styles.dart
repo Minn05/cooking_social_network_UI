@@ -4,7 +4,10 @@ Color primary = const Color(0xFF687daf);
 
 class Styles {
   static Color primaryColor = primary;
-  static Color bgColor = const Color(0xFFDFE3EE);
+  static Color bgColor = const Color(0xFFF8F8F8);
+  static Color postColor = const Color(0xFFFFFFFF);
+  static Color iconColor = const Color(0xFF990011);
+
   static Color textColor = const Color(0xFF363753);
   static Color blueColor = const Color(0xFF5CD2C6);
   static Color marinerColor = const Color(0xFF3a559f);

@@ -3,7 +3,7 @@ import 'package:cooking_social_network/widgets/height_weight.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../utils/app_styles.dart';
+import '../../utils/app_styles.dart';
 
 class ProfileBMI extends StatefulWidget {
   const ProfileBMI({super.key});
