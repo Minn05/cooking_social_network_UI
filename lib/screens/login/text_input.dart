@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/app_styles.dart';
+import '../../utils/app_styles.dart';
 
 class TextInput extends StatelessWidget {
   const TextInput({

@@ -1,9 +1,10 @@
 import 'package:cooking_social_network/utils/app_styles.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:cooking_social_network/Screens/add_screen.dart';
-import 'package:cooking_social_network/Screens/home_screen.dart';
-import 'package:cooking_social_network/Screens/profile_screen.dart';
+
+import '../add_recipe/add_screen.dart';
+import '../home/home_screen.dart';
+import '../profile/profile_screen.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -42,8 +43,8 @@ class _BottomBarState extends State<BottomBar> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Styles.bgColor,
-        animationDuration: Duration(milliseconds: 300),
-        color: Color(0xFFFAD1D6),
+        animationDuration:const Duration(milliseconds: 300),
+        color: const Color(0xFFFAD1D6),
         items: items,
         index: index,
         onTap: (selectedIndex) {

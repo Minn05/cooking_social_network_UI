@@ -5,7 +5,7 @@ import 'package:cooking_social_network/utils/app_styles.dart';
 import 'package:gap/gap.dart';
 import '../../widgets/background_login.dart';
 import '../../widgets/password_input.dart';
-import '../../widgets/text_input.dart';
+import 'text_input.dart';
 
 
 class LoginScreen extends StatefulWidget {

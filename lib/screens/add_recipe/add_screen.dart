@@ -1,7 +1,7 @@
 import 'package:cooking_social_network/utils/app_styles.dart';
 import 'package:cooking_social_network/widgets/add_steps.dart';
 import 'package:cooking_social_network/widgets/test.dart';
-import 'package:cooking_social_network/widgets/text_input.dart';
+import 'package:cooking_social_network/screens/login/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -148,4 +148,3 @@ class AddScren extends StatelessWidget {
   }
 }
 
-//Class Text and TextInput

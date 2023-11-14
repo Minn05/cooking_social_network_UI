@@ -6,7 +6,9 @@ class TabBar_Save extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('TabBar Save'),
+      body: Center(
+        child: Image.asset('assets/images/logo_app.png'),
+      ),
     );
   }
 }

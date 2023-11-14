@@ -1,11 +1,8 @@
 import 'package:cooking_social_network/utils/app_layout.dart';
-import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:cooking_social_network/utils/app_styles.dart';
 import 'package:gap/gap.dart';
 import '../../widgets/background_login.dart';
-import '../../widgets/password_input.dart';
-import '../../widgets/text_input.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -23,8 +20,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SafeArea(
-            child: Column(
-              children: [
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(children: [
                 SizedBox(
                   child: Center(
                     child: Column(
@@ -39,34 +37,65 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 Gap(AppLayout.getHeight(150)),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const TextInput(
-                      icon: FluentSystemIcons.ic_fluent_mail_filled,
-                      hint: 'Email',
-                      inputType: TextInputType.emailAddress,
-                      inputAction: TextInputAction.next,
+                //Email
+                const TextField(
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  keyboardType: TextInputType.emailAddress,
+                  cursorColor: Colors.red,
+                  decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
                     ),
-                    Gap(AppLayout.getHeight(10)),
-                    const PasswordInput(
-                      hint: 'Password',
-                      inputAction: TextInputAction.done,
-                      icon: FluentSystemIcons.ic_fluent_lock_filled,
+                    hintStyle: TextStyle(color: Colors.white),
+                    hintText: "Your Email",
+                    prefixIcon: Icon(
+                      Icons.email_outlined,
+                      color: Colors.red,
                     ),
-                    Gap(AppLayout.getHeight(10)),
-                    const PasswordInput(
-                      hint: 'Password',
-                      inputAction: TextInputAction.done,
-                      icon: FluentSystemIcons.ic_fluent_lock_filled,
+                  ),
+                ),
+                Gap(AppLayout.getHeight(10)),
+                //Password
+                const TextField(
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  keyboardType: TextInputType.emailAddress,
+                  cursorColor: Colors.red,
+                  decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
                     ),
-                    const SizedBox(
-                      height: 5,
+                    hintStyle: TextStyle(color: Colors.white),
+                    hintText: "Password",
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: Colors.red,
                     ),
-                    Text('Forgot Password?',
-                        style: Styles.headLineStyle1
-                            .copyWith(color: const Color(0xFF7CC6C6))),
-                  ],
+                  ),
+                ),
+                Gap(AppLayout.getHeight(10)),
+                //Confirm Password
+                const TextField(
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  keyboardType: TextInputType.emailAddress,
+                  cursorColor: Colors.red,
+                  decoration: InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    hintStyle: TextStyle(color: Colors.white),
+                    hintText: "Confirm Password",
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                Gap(AppLayout.getHeight(10)),
+                Text(
+                  'Forgot Password?',
+                  style: Styles.headLineStyle1.copyWith(
+                    color: const Color(0xFF7CC6C6),
+                  ),
                 ),
                 const SizedBox(height: 40),
                 Container(
@@ -86,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                 ),
-              ],
+              ]),
             ),
           ),
         ),

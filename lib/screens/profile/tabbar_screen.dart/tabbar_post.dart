@@ -6,7 +6,9 @@ class TabBar_Post extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('TabBar_Post'),
+      body: Center(
+        child: Image.asset('assets/images/avt.jpg'),
+      ),
     );
   }
 }

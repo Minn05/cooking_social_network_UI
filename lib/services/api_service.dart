@@ -12,6 +12,8 @@
 // abstract class ApiService {
 //   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
-//   @GET('/api/recipes')
-//   Future<loginModel>
+//   @POST('/api/auth/')
+
+//   // @GET('/api/recipes')
+//   // Future<loginModel>
 // }

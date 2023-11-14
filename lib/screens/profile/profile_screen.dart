@@ -1,3 +1,4 @@
+import 'package:cooking_social_network/screens/profile/profile_update_screen.dart';
 import 'package:cooking_social_network/screens/profile/tabbar_screen.dart/tabbar_post.dart';
 import 'package:cooking_social_network/screens/profile/tabbar_screen.dart/tabbar_save.dart';
 import 'package:cooking_social_network/utils/app_layout.dart';
@@ -31,139 +32,198 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Styles.bgColor,
+        shadowColor: Styles.bgColor,
+        elevation: 0,
+        leading: const Icon(
+          Icons.abc,
+          color: Colors.red,
+        ),
+        title: const Text(
+          'Profile',
+          style: TextStyle(color: Colors.black),
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: Icon(Icons.sunny, color: Colors.black),
+          ),
+        ],
+      ),
       backgroundColor: Styles.bgColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.menu,
-                      size: 40,
-                      color: Colors.grey.shade700,
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Avatar
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 80,
+                    width: 80,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(80),
+                      child: Image.asset('assets/images/avt.jpg'),
                     ),
                   ),
-                )
-              ],
-            ),
-            // Avatar
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.asset('assets/images/avt.jpg'),
-                  ),
-                ),
-              ),
-            ),
-            Divider(
-              height: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15, bottom: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  // Followers
-                  Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          // todo
-                        },
-                        child: const Column(
+                  Gap(AppLayout.getWidth(15)),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('0'),
-                            Text('Theo dõi'),
+                            Text('Minh Nhân'),
+                            Text("6051071080@st.utc2.edu.vn"),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                  // Following
-                  Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          // todo
-                        },
-                        child: const Column(
-                          children: [
-                            Text('0'),
-                            Text('Đang theo dõi'),
-                          ],
+                        ElevatedButton(
+                          onPressed: () {
+                            //todo
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const ProfileUpdateScreen(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              side:
+                                  const BorderSide(color: Colors.red, width: 2),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          child: const Text(
+                            "Edit",
+                            style: TextStyle(color: Colors.red),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
-            ),
 
-            Divider(
-              height: 1,
-            ),
+              Gap(AppLayout.getHeight(10)),
 
-            Gap(AppLayout.getHeight(10)),
+              const Divider(
+                height: 3,
+                color: Colors.grey,
+              ),
+              Gap(AppLayout.getHeight(10)),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.red,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: TabBar(
-                          unselectedLabelColor: Colors.blue,
-                          labelColor: Colors.black,
-                          indicatorColor: Colors.amberAccent,
-                          indicatorWeight: 2,
-                          indicator: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          controller: tabController,
-                          tabs: const [
-                            Tab(
-                              text: "Bài viết đã đăng",
-                            ),
-                            Tab(
-                              text: "Bài viết đã lưu",
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        controller: tabController,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Followers
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
+                    child: InkWell(
+                      onTap: () {
+                        // todo
+                      },
+                      child: const Column(
                         children: [
-                          TabBar_Post(),
-                          TabBar_Save(),
+                          Text('0'),
+                          Text('Followers'),
                         ],
                       ),
                     ),
-                  ],
+                  ),
+
+                  // verticalDivider
+                  Container(
+                    height: 60,
+                    width: 1,
+                    color: Colors.grey,
+                  ),
+
+                  // Following
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 20, 0, 20),
+                    child: InkWell(
+                      onTap: () {
+                        // todo
+                      },
+                      child: const Column(
+                        children: [
+                          Text('0'),
+                          Text('Following'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              // ),
+
+              const Divider(
+                height: 3,
+                color: Colors.grey,
+              ),
+
+              Gap(AppLayout.getHeight(10)),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          // color: Colors.green,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: TabBar(
+                            // unselectedLabelColor: Colors.blue,
+                            labelColor: Colors.black,
+                            indicatorColor:
+                                Colors.amberAccent, //màu của thanh dưới
+                            indicatorWeight: 5, //độ dày của thanh
+                            // indicator: BoxDecoration(
+                            //   color: Colors.white,
+                            //   borderRadius: BorderRadius.circular(5),
+                            // ),
+                            controller: tabController,
+                            tabs: const [
+                              Tab(
+                                text: "Your Recipe",
+                              ),
+                              Tab(
+                                text: "Recipe Is Saved",
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          controller: tabController,
+                          children: const [
+                            TabBar_Post(),
+                            TabBar_Save(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

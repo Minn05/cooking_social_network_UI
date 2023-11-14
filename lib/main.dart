@@ -2,6 +2,9 @@
 import 'package:cooking_social_network/provider/internet_provider.dart';
 import 'package:cooking_social_network/provider/sign_in_provider.dart';
 import 'package:cooking_social_network/screens/bottombar/bottom_bar.dart';
+import 'package:cooking_social_network/screens/login/register_screen.dart';
+import 'package:cooking_social_network/screens/profile/profile_screen.dart';
+import 'package:cooking_social_network/screens/profile/profile_update_screen.dart';
 // import 'package:cooking_social_network/screens/home_screen.dart';
 // import 'package:cooking_social_network/screens/splash_screen.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: primary,
         ),
-        home: const BottomBar(),
+        home: const ProfileUpdateScreen(),
       ),
     );
   }
