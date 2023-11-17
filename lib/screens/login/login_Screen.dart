@@ -7,7 +7,6 @@ import '../../widgets/background_login.dart';
 import '../../widgets/password_input.dart';
 import 'text_input.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 

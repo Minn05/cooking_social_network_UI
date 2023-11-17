@@ -1,3 +1,4 @@
+import 'package:cooking_social_network/utils/app_layout.dart';
 import 'package:cooking_social_network/utils/app_styles.dart';
 import 'package:cooking_social_network/widgets/add_steps.dart';
 import 'package:cooking_social_network/widgets/test.dart';
@@ -18,23 +19,23 @@ class AddScren extends StatelessWidget {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Xác nhận'),
-          content: SingleChildScrollView(
+          title: const Text('Xác nhận'),
+          content: const SingleChildScrollView(
             child: ListBody(
-              children: const <Widget>[
+              children: <Widget>[
                 Text('Bạn có chắc muốn đăng?'),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Không'),
+              child: const Text('Không'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Có'),
+              child: const Text('Có'),
               onPressed: () {
                 // Thực hiện hành động khi người dùng chọn "Có"
                 // ...
@@ -54,30 +55,37 @@ class AddScren extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         actions: [
-          Container(
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 5, 10, 5),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 20),
-                  child: TextButton(
-                    onPressed: () {
-                      _showConfirmationDialog(context);
-                    },
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 5),
-                      backgroundColor: Styles.blueColor,
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shadowColor: Colors.green,
+                      side: const BorderSide(
+                        color: Colors.yellow,
+                        width: 3,
+                      ),
+                      backgroundColor: Colors.grey,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                    ),
-                    child: Text(
-                      'Đăng',
-                      style: Styles.headLineStyle1
-                          .copyWith(color: Styles.textColor),
-                    ),
+                          borderRadius: BorderRadius.circular(20))),
+                  onPressed: () {
+                    _showConfirmationDialog(context);
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text('Create'),
                   ),
                 ),
+                IconButton(
+                    onPressed: () {
+                      print('Deleted Reicpe');
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.grey,
+                      shadows: [Shadow(color: Colors.red)],
+                    ))
               ],
             ),
           ),
@@ -88,7 +96,13 @@ class AddScren extends StatelessWidget {
           Column(
             children: [
               //Add image to tho recipe
-              TestImagePicker(),
+              Container(
+                color: Colors.white,
+                child: const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: TestImagePicker(),
+                ),
+              ),
 
               //decription
               Container(
@@ -106,7 +120,7 @@ class AddScren extends StatelessWidget {
                         inputAction: TextInputAction.send,
                         inputType: TextInputType.text,
                       ),
-                      const Gap(10),
+                      Gap(AppLayout.getHeight(10)),
                       //Inspiration
                       TextInput(
                         width: MediaQuery.of(context).size.width - 20,
@@ -147,4 +161,3 @@ class AddScren extends StatelessWidget {
     );
   }
 }
-

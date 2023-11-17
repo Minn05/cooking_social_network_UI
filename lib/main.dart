@@ -1,8 +1,10 @@
 // import 'package:cooking_social_network/login/login_Screen.dart';
 import 'package:cooking_social_network/provider/internet_provider.dart';
 import 'package:cooking_social_network/provider/sign_in_provider.dart';
+import 'package:cooking_social_network/screens/add_recipe/add_screen.dart';
 import 'package:cooking_social_network/screens/bottombar/bottom_bar.dart';
 import 'package:cooking_social_network/screens/login/register_screen.dart';
+import 'package:cooking_social_network/screens/login/stepper_register.dart';
 import 'package:cooking_social_network/screens/profile/profile_screen.dart';
 import 'package:cooking_social_network/screens/profile/profile_update_screen.dart';
 // import 'package:cooking_social_network/screens/home_screen.dart';
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: primary,
         ),
-        home: const ProfileUpdateScreen(),
+        home: const StepperScreen(),
       ),
     );
   }
