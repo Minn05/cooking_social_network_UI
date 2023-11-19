@@ -43,10 +43,12 @@ dependencies:
   dio: ^5.3.3
   intl: ^0.18.1
 
+
 dev_dependencies:
   retrofit_generator: ^8.0.4
   build_runner: ^2.4.6
   json_serializable: ^6.7.1
+  
   flutter_test:
     sdk: flutter
 

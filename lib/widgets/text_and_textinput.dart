@@ -1,6 +1,6 @@
-import 'package:cooking_social_network/screens/login/text_input.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../screens/add_recipe/text_input.dart';
 import '../utils/app_styles.dart';
 
 class TextandTextInput extends StatelessWidget {
