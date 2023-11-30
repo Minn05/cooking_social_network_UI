@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
-import '../bottombar/bottom_bar.dart';
+import '../../bottombar/bottom_bar.dart';
 
 class StepperScreen extends StatefulWidget {
   const StepperScreen({super.key});

@@ -8,12 +8,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:cooking_social_network/main.dart';
+// import 'package:cooking_social_network/main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const GetMaterialApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

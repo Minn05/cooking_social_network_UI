@@ -2,7 +2,7 @@ import 'package:cooking_social_network/utils/app_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:cooking_social_network/utils/app_styles.dart';
 import 'package:gap/gap.dart';
-import '../../widgets/background_login.dart';
+import '../../../widgets/background_login.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
