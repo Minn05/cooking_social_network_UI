@@ -30,11 +30,7 @@ class _BottomBarState extends State<BottomBar> {
       size: 30,
       color: Styles.iconColor,
     ),
-    // Icon(
-    //   Icons.notifications_none,
-    //   size: 25,
-    //   color: Colors.red,
-    // ),
+
   ];
   int index = 0;
 
@@ -43,7 +39,7 @@ class _BottomBarState extends State<BottomBar> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Styles.bgColor,
-        animationDuration:const Duration(milliseconds: 300),
+        animationDuration: const Duration(milliseconds: 300),
         color: const Color(0xFFFAD1D6),
         items: items,
         index: index,
@@ -75,11 +71,6 @@ class _BottomBarState extends State<BottomBar> {
           widget = const AddScren();
           break;
         }
-      // case 2:
-      //   {
-      //     widget = const SaveScreen();
-      //     break;
-      //   }
       case 2:
         {
           widget = const ProfileScreen();
