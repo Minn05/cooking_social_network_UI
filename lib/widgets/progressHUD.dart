@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProgressHUD extends StatelessWidget {
@@ -29,7 +28,7 @@ class ProgressHUD extends StatelessWidget {
               color: color,
             ),
           ),
-          Center(
+          const Center(
             child: CircularProgressIndicator(),
           )
         ],

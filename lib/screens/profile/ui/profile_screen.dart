@@ -1,10 +1,11 @@
-import 'package:cooking_social_network/screens/profile/profile_update_screen.dart';
-import 'package:cooking_social_network/screens/profile/tabbar_screen.dart/tabbar_post.dart';
-import 'package:cooking_social_network/screens/profile/tabbar_screen.dart/tabbar_save.dart';
+import 'package:cooking_social_network/screens/profile/ui/tabbar_post.dart';
+import 'package:cooking_social_network/screens/profile/ui/tabbar_save.dart';
+import 'package:cooking_social_network/screens/profile/ui/profile_update_screen.dart';
 import 'package:cooking_social_network/utils/app_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import '../../utils/app_styles.dart';
+
+import '../../../utils/app_styles.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key});

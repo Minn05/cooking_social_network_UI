@@ -10,13 +10,15 @@ class LoginResponseModel {
   String? msg;
   String? accessToken;
   User? user;
+  bool? isLoggedIn;
 
-  LoginResponseModel({this.msg, this.accessToken, this.user});
+  LoginResponseModel({this.msg, this.accessToken, this.user, this.isLoggedIn});
 
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
     accessToken = json['access_token'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    isLoggedIn = json['isLoggedIn'];
   }
 
   Map<String, dynamic> toJson() {
@@ -26,6 +28,7 @@ class LoginResponseModel {
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
+    data['isLoggedIn'] = this.isLoggedIn;
     return data;
   }
 }

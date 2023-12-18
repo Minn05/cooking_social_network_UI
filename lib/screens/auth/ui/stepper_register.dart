@@ -1,10 +1,15 @@
+import 'package:cooking_social_network/widgets/progressHUD.dart';
 import 'package:cooking_social_network/utils/app_layout.dart';
 import 'package:cooking_social_network/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
+import '../../../config.dart';
+import '../../../services/api_service.dart';
+import '../../../utils/form_helper.dart';
 import '../../bottombar/bottom_bar.dart';
+import '../model/register_request_model.dart';
 
 class StepperScreen extends StatefulWidget {
   const StepperScreen({super.key});
@@ -14,13 +19,74 @@ class StepperScreen extends StatefulWidget {
 }
 
 class _StepperScreenState extends State<StepperScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  static final GlobalKey<FormState> _globalFormKey = GlobalKey<FormState>();
+  bool isApiCallProcess = false;
   int _activeStepIndex = 0;
   final _fullname = TextEditingController();
   bool male = false;
   bool female = false;
   bool other = false;
   final _date = TextEditingController();
-  final _indexBMIController = TextEditingController();
+  final _weight = TextEditingController();
+  final _height = TextEditingController();
+
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Stepper to Login"),
+        ),
+        backgroundColor: Colors.grey.shade200,
+        key: _scaffoldKey,
+        body: ProgressHUD(
+          child: _stepperUISetup(context),
+          inAsyncCall: isApiCallProcess,
+          opacity: 0.3,
+        ),
+      ),
+    );
+  }
+
+  Widget _stepperUISetup(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        child: Form(
+          child: _stepperUI(context),
+          key: _globalFormKey,
+        ),
+      ),
+    );
+  }
+
+  Widget _stepperUI(BuildContext context) {
+    return Stepper(
+      controlsBuilder: _controllerBuilder,
+      type: StepperType.vertical,
+      currentStep: _activeStepIndex,
+      steps: stepList(),
+      onStepContinue: () {
+        if (_activeStepIndex < (stepList().length - 1)) {
+          _activeStepIndex += 1;
+        } else {
+          setState(() {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const BottomBar(),
+              ),
+            );
+          });
+        }
+        setState(() {});
+      },
+      onStepCancel: () {
+        if (_activeStepIndex == 0) return;
+        _activeStepIndex -= 1;
+        setState(() {});
+      },
+    );
+  }
 
   List<Step> stepList() => [
         //fullname
@@ -55,64 +121,58 @@ class _StepperScreenState extends State<StepperScreen> {
             // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Your gender"),
+              const Text("Your gender"),
               Gap(AppLayout.getWidth(20)),
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: CheckboxListTile(
-                      title: Text('Male'),
-                      contentPadding: EdgeInsets.zero,
-                      value: male,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          male = value!;
-                          if (value) {
-                            // Nếu chọn male, bỏ chọn female và other
-                            female = false;
-                            other = false;
-                          }
-                        });
-                      },
-                    ),
+                  CheckboxListTile(
+                    title: const Text('Male'),
+                    contentPadding: EdgeInsets.zero,
+                    value: male,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        male = value!;
+                        if (value) {
+                          // Nếu chọn male, bỏ chọn female và other
+                          female = false;
+                          other = false;
+                        }
+                      });
+                    },
                   ),
-                  Expanded(
-                    child: CheckboxListTile(
-                      title: Text('Female'),
-                      contentPadding: EdgeInsets.zero,
-                      value: female,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          female = value!;
-                          if (value) {
-                            // Nếu chọn female, bỏ chọn male và other
-                            male = false;
-                            other = false;
-                          }
-                        });
-                      },
-                    ),
+                  CheckboxListTile(
+                    title: const Text('Female'),
+                    contentPadding: EdgeInsets.zero,
+                    value: female,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        female = value!;
+                        if (value) {
+                          // Nếu chọn female, bỏ chọn male và other
+                          male = false;
+                          other = false;
+                        }
+                      });
+                    },
                   ),
-                  Expanded(
-                    child: CheckboxListTile(
-                      title: Text('Other'),
-                      contentPadding: EdgeInsets.zero,
-                      value: other,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          other = value!;
-                          if (value) {
-                            // Nếu chọn other, bỏ chọn male và female
-                            male = false;
-                            female = false;
-                          }
-                        });
-                      },
-                    ),
+                  CheckboxListTile(
+                    title: const Text('Other'),
+                    contentPadding: EdgeInsets.zero,
+                    value: other,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        other = value!;
+                        if (value) {
+                          // Nếu chọn other, bỏ chọn male và female
+                          male = false;
+                          female = false;
+                        }
+                      });
+                    },
                   ),
                 ],
               ),
@@ -167,14 +227,14 @@ class _StepperScreenState extends State<StepperScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Your Height'),
+                    const Text('Your Height'),
                     Gap(AppLayout.getHeight(10)),
                     Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.width * 0.3,
                           child: TextField(
-                            controller: _indexBMIController,
+                            controller: _height,
                             decoration: InputDecoration(
                               hintText: "Your Height",
                               border: OutlineInputBorder(
@@ -193,14 +253,14 @@ class _StepperScreenState extends State<StepperScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Your Weight'),
+                    const Text('Your Weight'),
                     Gap(AppLayout.getHeight(10)),
                     Row(
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width * 0.3,
                           child: TextField(
-                            controller: _indexBMIController,
+                            controller: _weight,
                             decoration: InputDecoration(
                               hintText: "Your Weight",
                               border: OutlineInputBorder(
@@ -217,16 +277,63 @@ class _StepperScreenState extends State<StepperScreen> {
           ),
         ),
       ];
+
   Widget _controllerBuilder(context, details) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        OutlinedButton(
+        ElevatedButton(
           style: OutlinedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12))),
-          onPressed: details.onStepCancel,
+          onPressed: () {
+            details.onStepCancel;
+            setState(() {
+              if (validateAndSave()) {
+                  // print("Fullname: $fullName");
+                  // print("Email: $email");
+                  // print("Password: $password");
+
+                  setState(() {
+                    this.isApiCallProcess = true;
+                  });
+
+                  // Navigator.pushNamed(context, '/stepper');
+
+                  RegisterRequestModel model = RegisterRequestModel(
+                    // fullName: fullName,
+                    // email: email,
+                    // password: password,
+                  );
+                  APIService.register(model).then((response) => {
+                        setState(() {
+                          this.isApiCallProcess = false;
+                        }),
+                        if (model != null)
+                          {
+                            FormHelper.showMessage(context, Config.appName,
+                                'true: ${response.user}', 'OKE', () {
+                              Navigator.pop(context);
+                            }),
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              '/stepper',
+                              (route) => true,
+                            ),
+                          }
+                        else
+                          {
+                            FormHelper.showMessage(context, Config.appName,
+                                'false: ${response.msg}', "OK", () {
+                              Navigator.pop(context);
+                            })
+                          }
+                      });
+                }
+              },
+            );
+          },
           child: const Padding(
             padding: EdgeInsets.all(10),
             child: Text('Back'),
@@ -237,7 +344,10 @@ class _StepperScreenState extends State<StepperScreen> {
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12))),
-          onPressed: details.onStepContinue,
+          onPressed: () {
+            details.onStepContinue;
+            setState(() {});
+          },
           child: const Padding(
             padding: EdgeInsets.all(10),
             child: Text('Next'),
@@ -247,38 +357,21 @@ class _StepperScreenState extends State<StepperScreen> {
     );
   }
 
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Stepper to Login"),
-      ),
-      backgroundColor: Styles.bgColor,
-      body: Stepper(
-        controlsBuilder: _controllerBuilder,
-        type: StepperType.vertical,
-        currentStep: _activeStepIndex,
-        steps: stepList(),
-        onStepContinue: () {
-          if (_activeStepIndex < (stepList().length - 1)) {
-            _activeStepIndex += 1;
-          } else {
-            setState(() {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const BottomBar(),
-                ),
-              );
-            });
-          }
-          setState(() {});
-        },
-        onStepCancel: () {
-          if (_activeStepIndex == 0) return;
-          _activeStepIndex -= 1;
-          setState(() {});
-        },
-      ),
-    );
+  bool validateAndSave() {
+    final form = _globalFormKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  bool backAndReset() {
+    final form = _globalFormKey.currentState;
+    if (form != null) {
+      form.reset();
+      return true;
+    }
+    return false;
   }
 }

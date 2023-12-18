@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import '../model/login_response_model.dart';
+import '../screens/auth/model/login_response_model.dart';
 
 class SharedService {
-  static Future<bool> isLoggedIn() async {
+  static Future<bool?> isLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString("login_details") != null ? true : false;
+    var result = prefs.getBool("isLoggedIn");
+    return result;
   }
 
   static Future<LoginResponseModel?> loginDetails() async {
@@ -28,10 +29,18 @@ class SharedService {
                 responseModel.toJson(),
               )
             : '{}');
+    prefs.setBool("isLoggedIn", true);
   }
 
   static Future<void> logout(BuildContext context) async {
-    await setLoginDetails(null as LoginResponseModel);
-    Navigator.of(context).pushReplacementNamed('/login');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("isLoggedIn", false);
+
+    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+  }
+
+  static Future<String?> createRecipes() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("isLoggedIn");
   }
 }

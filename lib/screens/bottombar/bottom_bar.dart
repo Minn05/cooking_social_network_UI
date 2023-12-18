@@ -2,9 +2,9 @@ import 'package:cooking_social_network/utils/app_styles.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../add_recipe/add_screen.dart';
+import '../add_recipe/ui/add_screen.dart';
 import '../home/home_screen.dart';
-import '../profile/profile_screen.dart';
+import '../profile/ui/profile_screen.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -30,7 +30,6 @@ class _BottomBarState extends State<BottomBar> {
       size: 30,
       color: Styles.iconColor,
     ),
-
   ];
   int index = 0;
 

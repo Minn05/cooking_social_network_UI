@@ -1,7 +1,7 @@
+import 'package:cooking_social_network/screens/add_recipe/ui/widget/text_input.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/add_recipe/text_input.dart';
-import '../utils/app_styles.dart';
+import '../../../../utils/app_styles.dart';
 
 class HeightWeight extends StatelessWidget {
   const HeightWeight({

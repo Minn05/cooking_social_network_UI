@@ -1,28 +1,28 @@
-import 'package:cooking_social_network/screens/login/model/login_request_model.dart';
-import 'package:cooking_social_network/screens/login/services/api_service.dart';
-import 'package:cooking_social_network/screens/login/ui/progressHUD.dart';
+import 'package:cooking_social_network/screens/auth/model/register_request_model.dart';
+import 'package:cooking_social_network/widgets/progressHUD.dart';
 import 'package:cooking_social_network/utils/app_layout.dart';
-import 'package:cooking_social_network/utils/form_helper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import '../../../config.dart';
+import '../../../utils/form_helper.dart';
+import '../../../services/api_service.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   static final GlobalKey<FormState> _globalFormKey = GlobalKey<FormState>();
+  String fullName = "";
   String email = "";
   String password = "";
   bool hidePassword = true;
   bool isApiCallProcess = false;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.grey.shade200,
         key: _scaffoldKey,
         body: ProgressHUD(
-          child: _loginUISetup(context),
+          child: _registerUISetup(context),
           inAsyncCall: isApiCallProcess,
           opacity: 0.3,
         ),
@@ -38,18 +38,18 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _loginUISetup(BuildContext context) {
+  Widget _registerUISetup(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         child: Form(
-          child: _loginUI(context),
+          child: _registerUI(context),
           key: _globalFormKey,
         ),
       ),
     );
   }
 
-  Widget _loginUI(BuildContext context) {
+  Widget _registerUI(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -87,6 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
+
+          //Text
           const Center(
             child: Padding(
               padding: EdgeInsets.only(
@@ -94,11 +96,35 @@ class _LoginScreenState extends State<LoginScreen> {
                 bottom: 10,
               ),
               child: Text(
-                'Login',
+                'Register',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
             ),
           ),
+
+          //fullname
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 20,
+              bottom: 10,
+            ),
+            child: FormHelper.inputFieldWidget(
+              context,
+              const Icon(Icons.person_outline),
+              "fullName",
+              "Your Fullname",
+              (onVaidateVal) {
+                if (onVaidateVal.isEmpty) {
+                  return 'Fullname can\'t be empty.';
+                }
+                return null;
+              },
+              (onSavedValue) {
+                fullName = onSavedValue.trim();
+              },
+            ),
+          ),
+
           //email
           Padding(
             padding: const EdgeInsets.only(
@@ -107,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             child: FormHelper.inputFieldWidget(
               context,
-              const Icon(Icons.verified_user),
+              const Icon(Icons.email_outlined),
               "email",
               "Email",
               (onVaidateVal) {
@@ -121,6 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
               },
             ),
           ),
+
           //password
           Padding(
             padding: const EdgeInsets.only(
@@ -128,68 +155,77 @@ class _LoginScreenState extends State<LoginScreen> {
               bottom: 10,
             ),
             child: FormHelper.inputFieldWidget(
-                context, const Icon(Icons.lock), "password", "Password",
-                (onVaidateVal) {
-              if (onVaidateVal.isEmpty) {
-                return 'Password can\'t be empty.';
-              }
-              return null;
-            }, (onSavedValue) {
-              password = onSavedValue.trim();
-            },
-                initialValue: "",
-                obscureText: hidePassword,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      hidePassword = !hidePassword;
-                    });
-                  },
-                  icon: Icon(
-                      hidePassword ? Icons.visibility_off : Icons.visibility),
-                  color: Colors.redAccent.withOpacity(0.4),
-                )),
+              context,
+              const Icon(Icons.lock_outline),
+              "password",
+              "Password",
+              (onVaidateVal) {
+                if (onVaidateVal.isEmpty) {
+                  return 'Password can\'t be empty.';
+                }
+                return null;
+              },
+              (onSavedValue) {
+                password = onSavedValue.trim();
+              },
+              initialValue: "",
+              obscureText: hidePassword,
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    hidePassword = !hidePassword;
+                  });
+                },
+                icon: Icon(
+                    hidePassword ? Icons.visibility_off : Icons.visibility),
+                color: Colors.redAccent.withOpacity(0.4),
+              ),
+            ),
           ),
 
-          Gap(AppLayout.getHeight(20)),
-          //loginbutton
+          Gap(AppLayout.getHeight(10)),
+
+          //next button
           Center(
-            child: FormHelper.saveButton(
-              "Login",
+            child: FormHelper.nextButton(
+              "Next",
               () {
                 if (validateAndSave()) {
+                  print("Fullname: $fullName");
                   print("Email: $email");
                   print("Password: $password");
 
                   setState(() {
-                    this.isApiCallProcess = false;
+                    this.isApiCallProcess = true;
                   });
-                  print("1");
-                  print("Email: $email");
-                  print("Password: $password");
 
-                  LoginRequestModel model = LoginRequestModel(
+                  // Navigator.pushNamed(context, '/stepper');
+
+                  RegisterRequestModel model = RegisterRequestModel(
+                    fullName: fullName,
                     email: email,
                     password: password,
                   );
-                  print("2");
-                  print("Email: $email");
-                  print("Password: $password");
-                  APIService.login(model).then((response) => {
+                  APIService.register(model).then((response) => {
                         setState(() {
                           this.isApiCallProcess = false;
                         }),
-                        if (response)
+                        if (model != null)
                           {
-                            Navigator.pushNamed(
+                            FormHelper.showMessage(context, Config.appName,
+                                'true: ${response.user}', 'OKE', () {
+                              Navigator.pop(context);
+                            }),
+                            Navigator.pushNamedAndRemoveUntil(
                               context,
-                              '/bottombar',
+                              '/stepper',
+                              (route) => true,
                             ),
                           }
                         else
                           {
                             FormHelper.showMessage(context, Config.appName,
-                                "Invalid Email or Password!", "OK", () {
+                                'false: ${response.msg}', "OK", () {
                               Navigator.pop(context);
                             })
                           }
@@ -198,7 +234,10 @@ class _LoginScreenState extends State<LoginScreen> {
               },
             ),
           ),
-          Gap(AppLayout.getHeight(20)),
+
+          Gap(AppLayout.getHeight(10)),
+
+          //text
           const Center(
             child: Text(
               "OR",
@@ -209,12 +248,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
 
-          //Move to the RegisterScreen
+          //Move to the LoginScreen
           Center(
             child: RichText(
               text: TextSpan(
-                text: 'Haven\'t account ',
-                style: TextStyle(color: Colors.grey, fontSize: 14),
+                text: 'Already have an account ',
+                style: const TextStyle(color: Colors.grey, fontSize: 14),
                 children: <TextSpan>[
                   TextSpan(
                     text: 'Sign Up',
@@ -225,7 +264,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        Navigator.pushNamed(context, '/register');
+                        // Chuyển đến trang mới khi "Sign Up" được click
+                        Navigator.pushNamed(context, '/login');
                       },
                   ),
                 ],

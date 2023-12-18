@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:cooking_social_network/services/shared_service.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:cooking_social_network/utils/app_layout.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import '../../utils/app_styles.dart';
+
+import '../../../utils/app_styles.dart';
 
 class ProfileUpdateScreen extends StatefulWidget {
   const ProfileUpdateScreen({super.key});
@@ -56,11 +58,11 @@ class _ProfileUpdateScreenState extends State<ProfileUpdateScreen> {
         actions: [
           IconButton(
             icon: const Icon(
-              Icons.keyboard_arrow_right_outlined,
+              Icons.logout_outlined,
               color: Colors.red,
             ),
             onPressed: () {
-              //TODO:
+              SharedService.logout(context);
             },
           )
         ],

@@ -1,27 +1,28 @@
-import 'package:cooking_social_network/screens/login/ui/progressHUD.dart';
+import 'package:cooking_social_network/screens/auth/model/login_request_model.dart';
+import 'package:cooking_social_network/services/api_service.dart';
+import 'package:cooking_social_network/widgets/progressHUD.dart';
 import 'package:cooking_social_network/utils/app_layout.dart';
+import 'package:cooking_social_network/utils/form_helper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import '../../../config.dart';
-import '../../../utils/form_helper.dart';
-import '../model/login_request_model.dart';
-import '../services/api_service.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   static final GlobalKey<FormState> _globalFormKey = GlobalKey<FormState>();
   String email = "";
   String password = "";
   bool hidePassword = true;
   bool isApiCallProcess = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,7 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: Colors.grey.shade200,
         key: _scaffoldKey,
         body: ProgressHUD(
-          child: _registerUISetup(context),
+          child: _loginUISetup(context),
           inAsyncCall: isApiCallProcess,
           opacity: 0.3,
         ),
@@ -37,18 +38,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _registerUISetup(BuildContext context) {
+  Widget _loginUISetup(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         child: Form(
-          child: _registerUI(context),
+          child: _loginUI(context),
           key: _globalFormKey,
         ),
       ),
     );
   }
 
-  Widget _registerUI(BuildContext context) {
+  Widget _loginUI(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -86,8 +87,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ],
             ),
           ),
-
-          //Text
           const Center(
             child: Padding(
               padding: EdgeInsets.only(
@@ -95,12 +94,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 bottom: 10,
               ),
               child: Text(
-                'Eegister',
+                'Login',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
             ),
           ),
-
           //email
           Padding(
             padding: const EdgeInsets.only(
@@ -123,7 +121,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               },
             ),
           ),
-
           //password
           Padding(
             padding: const EdgeInsets.only(
@@ -131,40 +128,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
               bottom: 10,
             ),
             child: FormHelper.inputFieldWidget(
-                context, const Icon(Icons.lock), "password", "Password",
-                (onVaidateVal) {
-              if (onVaidateVal.isEmpty) {
-                return 'Password can\'t be empty.';
-              }
-              return null;
-            }, (onSavedValue) {
-              password = onSavedValue.trim();
-            },
-                initialValue: "",
-                obscureText: hidePassword,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      hidePassword = !hidePassword;
-                    });
-                  },
-                  icon: Icon(
-                      hidePassword ? Icons.visibility_off : Icons.visibility),
-                  color: Colors.redAccent.withOpacity(0.4),
-                )),
+              context,
+              const Icon(Icons.lock),
+              "password",
+              "Password",
+              (onVaidateVal) {
+                if (onVaidateVal.isEmpty) {
+                  return 'Password can\'t be empty.';
+                }
+                return null;
+              },
+              (onSavedValue) {
+                password = onSavedValue.trim();
+              },
+              initialValue: "",
+              obscureText: hidePassword,
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    hidePassword = !hidePassword;
+                  });
+                },
+                icon: Icon(
+                    hidePassword ? Icons.visibility_off : Icons.visibility),
+                color: Colors.redAccent.withOpacity(0.4),
+              ),
+            ),
           ),
 
           Gap(AppLayout.getHeight(20)),
-
-          //registerbutton
+          //loginbutton
           Center(
             child: FormHelper.saveButton(
-              "register",
+              "Login",
               () {
                 if (validateAndSave()) {
-                  print("Email: $email");
-                  print("Password: $password");
-
                   setState(() {
                     this.isApiCallProcess = true;
                   });
@@ -173,34 +171,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     email: email,
                     password: password,
                   );
-                  APIService.login(model).then((response) => {
-                        setState(() {
+
+                  APIService.login(model).then(
+                    (response) => {
+                      setState(
+                        () {
                           this.isApiCallProcess = false;
-                        }),
-                        if (response)
-                          {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              'stepper',
-                              (route) => true,
-                            ),
-                          }
-                        else
-                          {
-                            FormHelper.showMessage(context, Config.appName,
-                                "Invalid Email or Password!", "OK", () {
+                        },
+                      ),
+                      if (response)
+                        {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            '/bottombar',
+                          ),
+                        }
+                      else
+                        {
+                          FormHelper.showMessage(
+                            context,
+                            Config.appName,
+                            "Invalid Email or Password!",
+                            "OK",
+                            () {
                               Navigator.pop(context);
-                            })
-                          }
-                      });
+                            },
+                          ),
+                        },
+                    },
+                  );
                 }
               },
             ),
           ),
-
           Gap(AppLayout.getHeight(20)),
-
-          //text
           const Center(
             child: Text(
               "OR",
@@ -211,7 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
 
-          //Move to the LoginScreen
+          //Move to the RegisterScreen
           Center(
             child: RichText(
               text: TextSpan(
@@ -227,8 +231,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        // Chuyển đến trang mới khi "Sign Up" được click
-                        Navigator.pushNamed(context, '/login');
+                        Navigator.pushNamed(context, '/register');
                       },
                   ),
                 ],

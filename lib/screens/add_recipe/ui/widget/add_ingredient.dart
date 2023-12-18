@@ -1,7 +1,8 @@
+import 'package:cooking_social_network/utils/app_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import '../screens/add_recipe/text_input.dart';
-import '../utils/app_styles.dart';
+import '../../../../utils/app_styles.dart';
+import 'text_input.dart';
 
 class AddIngredient extends StatefulWidget {
   const AddIngredient({
@@ -28,7 +29,7 @@ class _AddIngredientState extends State<AddIngredient> {
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -36,12 +37,19 @@ class _AddIngredientState extends State<AddIngredient> {
               'Nguyên liệu',
               style: Styles.headLineStyle3.copyWith(color: Colors.black),
             ),
-            Gap(30),
+            Gap(AppLayout.getHeight(10)),
+            const Divider(
+              height: 1,
+            ),
+            Gap(AppLayout.getHeight(20)),
 
             // Added containers
             ...addedContainers,
-            Divider(),
-            const Gap(30),
+            const Divider(
+              height: 1,
+            ),
+            Gap(AppLayout.getHeight(20)),
+
             TextButton(
               onPressed: () {
                 setState(() {
